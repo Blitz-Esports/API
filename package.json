@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "airtable": "^0.11.4",
+    "apicache": "^1.6.3",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-sharp": "^4.2.41",
+    "got": "^11.8.5",
+    "graphql-request": "^4.3.0",
+    "imagekit": "^4.1.1",
+    "moment": "^2.29.3",
+    "node-cache": "^5.1.2",
+    "nodemon": "^2.0.16",
+    "pm2": "^5.2.0",
+    "rss-to-json": "^2.1.0"
+  }
+}
