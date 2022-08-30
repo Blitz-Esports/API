@@ -19,7 +19,7 @@ app.use(middleware("1 day"));
 const run = async () => {
 
     app.get("/", (req, res) => {
-        res.send("Hello World");
+        res.send("Ok Scientist ;)");
     });
 
     app.use(BlogRoute);
