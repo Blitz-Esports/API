@@ -28,7 +28,7 @@ Route.get("/blog", async (req, res) => {
                 ...record._rawJson.fields,
                 Thumbnail: `https://ik.imagekit.io/blitz/blog/${record.id}`
             }
-        }));
+        }).sort((a, b) => b["Created At"] - a["Created At"]));
 
         records.forEach((record) => {
             if (record._rawJson.fields.Thumbnail && record._rawJson.fields.Thumbnail[0]) {
@@ -46,6 +46,26 @@ Route.get("/blog", async (req, res) => {
         console.error(err);
         res.status(500).send("Server Error");
     }
+});
+
+Route.get("/blog/:id", async (req, res) => {
+
+    try {
+
+        const record = await base("Blogs").find(req.params.id).catch(() => null);
+
+        if (record) res.status(200).json({
+            id: record.id,
+            ...record._rawJson.fields,
+            Thumbnail: `https://ik.imagekit.io/blitz/blog/${record.id}`
+        });
+        else res.status(404).send("Record not found");
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server Error");
+    }
+
 });
 
 module.exports.BlogRoute = Route;

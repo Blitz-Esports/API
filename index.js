@@ -8,18 +8,19 @@ const { FaqRoute } = require("./routes/faq");
 const { GalleryRoute } = require("./routes/gallery");
 const { HeaderRoute } = require("./routes/header");
 const app = express();
-const {middleware} = require("apicache");
+const { middleware } = require("apicache");
+const { ContentRoute } = require("./routes/content");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use(middleware("1 day"));
+app.use(middleware("1 hour"));
 
 const run = async () => {
 
     app.get("/", (req, res) => {
-        res.send("Ok Scientist ;)");
+        res.send("Hello World");
     });
 
     app.use(BlogRoute);
@@ -27,6 +28,7 @@ const run = async () => {
     app.use(FaqRoute);
     app.use(GalleryRoute);
     app.use(HeaderRoute);
+    app.use(ContentRoute);
 
     app.listen(process.env.PORT || 3000, () => {
         console.log(`Server is running on port ${process.env.PORT}`);
