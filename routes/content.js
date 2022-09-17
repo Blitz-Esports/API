@@ -27,7 +27,7 @@ module.exports.ContentRoute = Router().use("/content", async (req, res) => {
                 ...r._rawJson.fields,
                 thumbnail: `https://ik.imagekit.io/blitz/content-thumbnail/${r.id}`
             }
-        }));
+        }).reverse());
 
         const files = await imageClient.listFiles({
             path: "/content-thumbnail"
