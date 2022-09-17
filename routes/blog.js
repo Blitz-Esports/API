@@ -19,7 +19,8 @@ Route.get("/blog", async (req, res) => {
 
         const records = await base("Blogs").select({
             maxRecords: 100,
-            cellFormat: "json"
+            cellFormat: "json",
+            view: "Grid view"
         }).all();
 
         res.status(200).json(records.map((record) => {

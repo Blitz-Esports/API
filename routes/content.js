@@ -18,7 +18,8 @@ module.exports.ContentRoute = Router().use("/content", async (req, res) => {
     try {
         const records = await base("Content").select({
             maxRecords: 100,
-            cellFormat: "json"
+            cellFormat: "json",
+            view: "Grid view"
         }).all();
 
         res.status(200).json(records.map((r) => {
@@ -27,7 +28,7 @@ module.exports.ContentRoute = Router().use("/content", async (req, res) => {
                 ...r._rawJson.fields,
                 thumbnail: `https://ik.imagekit.io/blitz/content-thumbnail/${r.id}`
             }
-        }).reverse());
+        }));
 
         const files = await imageClient.listFiles({
             path: "/content-thumbnail"

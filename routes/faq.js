@@ -9,7 +9,8 @@ module.exports.FaqRoute = Router().use("/faq", async (req, res) => {
     try {
         const records = await base("FAQs").select({
             maxRecords: 100,
-            cellFormat: "json"
+            cellFormat: "json",
+            view: "Grid view"
         }).all();
 
         res.status(200).json(records.map((r) => r._rawJson));

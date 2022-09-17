@@ -17,7 +17,8 @@ module.exports.GalleryRoute = Router().use("/gallery", async (req, res) => {
     try {
         const records = await base("Gallery").select({
             maxRecords: 100,
-            cellFormat: "json"
+            cellFormat: "json",
+            view: "Grid view"
         }).all();
 
         const files = await imageClient.listFiles({
