@@ -69,4 +69,34 @@ Route.get("/blog/:id", async (req, res) => {
 
 });
 
+Route.get("/blog/:id/share", async (req, res) => {
+
+    if (!req.query.social) return res.status(404).send("Invalid Social Id");
+    try {
+
+        const record = await base("Blogs").find(req.params.id).catch(() => null);
+
+        const shareLink = (social) => {
+            const encodedDescription = encodeURI(`Check out: ${record.fields.Title}\nhttps://blitzesports.org/blog?id=${record.id}`);
+            const encodedUrl = encodeURI(`https://blitzesports.org/blog?id=${record.id}`);
+
+            const socialsData = {
+                twitter: `https://twitter.com/intent/tweet?text=${encodedDescription}`,
+                facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&t=${encodedDescription}`,
+                pinterest: `http://pinterest.com/pin/create/button/?url=${encodedUrl}&description=${encodedDescription}`,
+                telegram: `https://t.me/share/url?url=${encodedUrl}&text=${encodedDescription}`
+            }
+            return socialsData[social] ?? null;
+        };
+
+        if (shareLink(req.query.social)) return res.redirect(shareLink(req.query.social));
+        else res.status(404).send("Invalid Social Id");
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server Error");
+    }
+
+});
+
 module.exports.BlogRoute = Route;
