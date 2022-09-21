@@ -84,7 +84,9 @@ Route.get("/blog/:id/share", async (req, res) => {
                 twitter: `https://twitter.com/intent/tweet?text=${encodedDescription}`,
                 facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&t=${encodedDescription}`,
                 pinterest: `http://pinterest.com/pin/create/button/?url=${encodedUrl}&description=${encodedDescription}`,
-                telegram: `https://t.me/share/url?url=${encodedUrl}&text=${encodedDescription}`
+                telegram: `https://t.me/share/url?url=${encodedUrl}&text=${encodedDescription}`,
+                reddit: `https://www.reddit.com/submit?title=${encodeURI(record.fields.Title)}&text=${encodedDescription}`,
+                linkedin: `http://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodeURI(record.fields.Title)}&summary=${encodedDescription}&source=blitzesports.org`
             }
             return socialsData[social] ?? null;
         };
