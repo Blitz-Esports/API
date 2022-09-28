@@ -25,11 +25,17 @@ module.exports.GalleryRoute = Router().use("/gallery", async (req, res) => {
             path: "/gallery"
         });
 
-        res.status(200).json(files.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+        const filteredFiles = records.map((r) => {
+            const imageId = r.fields.Image ? r.fields.Image[0].id : null;
+            if(imageId) return files.find((f) => f.tags.includes(imageId));
+            else return null;
+        }).filter((v) => v != null);
+
+        res.status(200).json(filteredFiles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
 
         records.forEach(async (record) => {
-            const imageId = record.fields.Image[0].id;
-            if (!files.find((file) => file.tags.includes(imageId))) {
+            const imageId = record.fields.Image ? record.fields.Image[0].id : null;
+            if (imageId && !files.find((file) => file.tags.includes(imageId))) {
 
                 const imageUrl = record.fields.Image[0].url;
                 const imageTitle = record.fields.ID;
