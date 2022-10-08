@@ -29,7 +29,7 @@ Route.get("/blog", async (req, res) => {
                 ...record._rawJson.fields,
                 Thumbnail: `https://ik.imagekit.io/blitz/blog/${record.id}`
             }
-        }).sort((a, b) => b["Created At"] - a["Created At"]));
+        }).sort((a, b) => new Date(b["Created At"]) - new Date(a["Created At"])));
 
         records.forEach((record) => {
             if (record._rawJson.fields.Thumbnail && record._rawJson.fields.Thumbnail[0]) {
